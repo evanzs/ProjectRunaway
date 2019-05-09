@@ -79,30 +79,18 @@ class Dados {
   
 ///////////////////DADOS DO CLIENTE///////////////////////
   
-  static final int CLIENTE_UM = 0;
-  static final int CLIENTE_DOIS = 1;
-  static final int LARG_CLIENTE = 600;
-  static final int ALTU_CLIENTE = 750;
-  static final int NUM_MAX_PLATAFORMA = 4;
-  static final int LARG_PLAT = 170;
+
   
 /////////////////////////////////////////////////////////  
  
 //////////////Limites do eixo Y jogaveis/////////////////
-  static final int LIMITE_LATERALE = 20;
-  static final int LIMITE_LATERALD = 740;
+
   
 //////////////Limites do eixo X Jogaveis////////////////
-  static final int LIMITE_INF =600;
-  static final int LIMITE_SUP = 20;
+ 
   
   //VELOCIDADE
-  static final int VEL_QUEDA = 10;
-  static final int VEL_BOMBA = 10;
-  
-  static final int N_BOMBA = 4;
-  
-  boolean EMCIMA_PLATAFORMA = false; 
+
 /////////////////////////////////////////////////////////   
   
   
@@ -134,89 +122,18 @@ class Dados {
   
   Dados() {
 	 
-	 estado[0] = new EstadoJogador();
-	 estado[0].c   = 'P';
-	 estado[0].x   = 30;
-	 estado[0].y   = LIMITE_INF;
-	 estado[0].dx  = 3;
-	 estado[0].dy  = 3;
-	
-	 
-	 estado[1] = new EstadoJogador();
-	 estado[1].c = 'P';
-	 estado[1].x = 200;
-	 estado[1].y = LIMITE_INF;
-	 estado[1].dx = 10;
-	 estado[1].dy = 10;
-	 
-	 Random random  = new Random();
-	 
-		 plataforma[0]= new Plataforma();
-		 plataforma[1]= new Plataforma();
-		 plataforma[2]= new Plataforma();
-		 plataforma[3]= new Plataforma();
-		
-		 
-		 bomba[0]= new Bombas();
-		 bomba[1]= new Bombas();
-		 bomba[2]= new Bombas();
-		 bomba[3]= new Bombas();
-		 
-		 // for? 
-		 
-		 
-		 
-		 
-		 
-		 //fixando a alltura das plataformas para melhor a jogabilidade e a mecanica		 
-		 //Nota: as alturas estăo fixas para ficarem proximas do pulo do personagem
-		 
-		 // top a direita
-		 plataforma[1].x  = 50;
-		 plataforma[1].y  = 500;
-		 plataforma[1].lx = plataforma[1].x+LARG_PLAT;  // largura da plataforma
-		 
-		 //topo a esquerda
-		 plataforma[2].x = 250;
-		 plataforma[2].y = 360;
-		 plataforma[2].lx = plataforma[2].x+ LARG_PLAT; 
-		 
-		 plataforma[3].x = 550;
-		 plataforma[3].y = 500;
-		 plataforma[3].lx = plataforma[3].x+ LARG_PLAT;
-		 
-		 plataforma[0].x = 400;
-		 plataforma[0].y = 220;
-		 plataforma[0].lx = plataforma[0].x+ LARG_PLAT;
-    
-		 
-		 
-		
-		 
-		 //primeiro andar
-		 //alturas fixas, saem das laterais
-		 bomba[1].x = LIMITE_LATERALE;
-		 bomba[1].y = 585;
-		 bomba[0].x = LIMITE_LATERALD;
-		 bomba[0].y = 585;
-		 
-		 //segundo andar 
-		 //alturas fixadas
-		 bomba[2].x = LIMITE_LATERALD;
-		 bomba[2].y = 450;
-		 bomba[3].x = LIMITE_LATERALE;
-		 bomba[3].y = 450; 
+	//aqui fica os dados de posição do panel
 		 
   }
   
   /** Envia os dados dos elementos do jogo aos clientes
    */
   
-  
+//                       {{{ RESPONSAVEL POR ENVIAR OS DADOS }}  
   synchronized boolean enviaClientes(PrintStream os[]) {
-    try {
-      // um caracter extra pode ser usado para indicar o tipo de dados
-      // está sendo enviado.
+    try 
+    {
+     // Dados enviados para o Player 1
       if (os[CLIENTE_UM] != null) {
         // para enviar ao cliente um inverte o lado do cliente dois
         os[CLIENTE_UM].println(estado[CLIENTE_UM].c);
@@ -226,18 +143,6 @@ class Dados {
         os[CLIENTE_UM].println(estado[CLIENTE_DOIS].x);
         os[CLIENTE_UM].println(estado[CLIENTE_DOIS].y);
         
-        //enviando plataformars 
-         for (int i = 0 ; i < 4; i++)
-         {        
-          os[CLIENTE_UM].println(plataforma[i].x);
-          os[CLIENTE_UM].println(plataforma[i].y);        
-         }
-         //enviando bombas 
-         for (int i = 0 ; i < 4; i++)
-         {        
-          os[CLIENTE_UM].println(bomba[i].x);
-          os[CLIENTE_UM].println(bomba[i].y);        
-         }
       }
       if (os[CLIENTE_DOIS] != null) {
         // para enviar ao cliente dois inverte o lado do cliente um
@@ -248,12 +153,7 @@ class Dados {
         os[CLIENTE_DOIS].println(estado[CLIENTE_UM].x);
         os[CLIENTE_DOIS].println(estado[CLIENTE_UM].y);
         
-        //enviando plataformars 
-        for (int i = 0 ; i < 4; i++)
-        {        
-         os[CLIENTE_DOIS].println(plataforma[i].x);
-         os[CLIENTE_DOIS].println(plataforma[i].y);        
-        }
+       
         
         //enviando bombas
         for (int i = 0 ; i < 4; i++)
@@ -276,68 +176,26 @@ class Dados {
     return true;
   }
   
-  synchronized void alteraDados(char c, int id) {
+  synchronized void alteraDados(char c, int id) 
+ {
     estado[id].c = c;
-  }
+ }
+ 
   
-  synchronized void alteraDados(int x, int y, int id,char c) {
-       if (c == 'D')
-       {
-    	   if (estado[id].x + x >= LIMITE_LATERALD)
-    	   {
-    		   estado[id].x = LIMITE_LATERALD;
-    		   estado[id].y +=y; 
-    	   }else
-    	   {      	   
-    		   estado[id].x += x;
-          	   estado[id].y += y;   	   
-    	   }
-       }
-    	 if ( c == 'E')
-    	 {
-    		 if (estado[id].x +x < LIMITE_LATERALE)
-    		 {
-    			 estado[id].x = LIMITE_LATERALE ;
-            	 estado[id].y += y; 
-    		 }
-    	 }
-    	 
-        
-        if ( c == 'C')
-        {
-        	
-        	
-        	// pula só se estiver no chăo
-        	if ( estado[id].y  == LIMITE_INF || EMCIMA_PLATAFORMA == true)
-        	{
-        		estado[id].x +=x;
-        		estado[id].y +=y;        	   	
-        			
-            }
-        	else
-        	{
-        		estado[id].x +=x;
-        		estado[id].y =estado[id].y;
-        	}        
-        	       
+  
+//   {{RESPONSAVEL POR ATUALIZAR OS DADOS APARTIR DO DADO RECEBIDO DO CLIENTE }}    
+synchronized void alteraDados(int x, int y, int id,char c) {
+	
+	// Player pressionou a seta para cima   
+     if ( c == 'C')
+        {	      
+         /** IMPLMENTA AQ SUA FUNCAO JONAS **/       
         }
         
         
-        if (c == 'E')
-        {
-        	// năo sair pela lateral
-        	if (estado[id].x+x < LIMITE_LATERALE)
-        	{
-        		estado[id].x = LIMITE_LATERALE;        		
-        	}
-        	else
-        	{
-        		estado[id].x += x;
-        	}
-        	
-        	
-        	
-        	
+        if (c == 'B')
+        {        	
+        	/** IMPLMENTA AQ SUA FUNCAO JONAS **/
         }
  }
        
@@ -520,8 +378,6 @@ class Enviando extends Thread {
 	 dados = d;
 	 this.os = os;
 }
-
-
 
 public void run() {
 	  

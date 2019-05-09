@@ -40,7 +40,7 @@ class ClienteRede extends JFrame {
   
   
  
-//===============================CARREGA AS IMAGENS==============================================================================================//
+
   class Desenho extends JPanel {
     Desenho() {  	
     	
@@ -58,10 +58,16 @@ class ClienteRede extends JFrame {
     
 //                                        {{CLASSE DESENHA OS COMPONENTES NA TELA }} 
     
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) 
+    {
       super.paintComponent(g);
       // desenha o background com tamanho que ele foi feito
       g.drawImage(bg,backgroundX,backgroundY, getSize().width, getSize().height, this);
+      
+      
+      
+      
+      
       Toolkit.getDefaultToolkit().sync();
     }
   }
@@ -126,39 +132,23 @@ class ClienteRede extends JFrame {
     
  //========================================================================================================================================//
  
-    //                                       {{ ClASSE ANONIMA PARA LER AS TECLAS DO TECLADO }}
-    
-    
-    
-    // ESSA PARTE È PARA SEU MOVIMENTO JONAS BRODER
-    
-   /* 
+    //                                       {{ ClASSE ANONIMA PARA LER AS TECLAS DO TECLADO }}    
+
+
     addKeyListener(new KeyAdapter() {
       public void keyPressed(KeyEvent e) {
-        try {
+        try 
+        {
+        		// Seta pra Baixo
         	 if (e.getKeyCode()==40){
         		 os.println("B");
              }
-             //Seta P cima        
+             //Seta pra cima        
              if (e.getKeyCode()==38){
             	 os.println("C");
              }
-             //Seta P direita
-             if (e.getKeyCode()==39){
-            	os.println("D");
-             }
-             //Seta P/ esquerda
-             if (e.getKeyCode()==37){
-            	 os.println("E");
-             }
-           
-        */
-        	
-          // apenas a letra estᡳendo enviada, mas um comando com 
-          // coordenadas ou um caracter indicador de mudan衠de
-          // comportamento do jogador poderia ser enviado dependendo da
-          // din㮩ca do jogo
-
+             // só letras são enviadas  
+ 
         } catch (Exception ex) {
           // coloque um JOptionPane para mostrar esta mensagem de erro
           System.err.println("O servidor interrompeu a comunica褯");
